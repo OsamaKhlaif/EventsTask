@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+
+}
+
+.header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px black solid;
+    background-color: #c99141;
+}
+
+.title {
+    margin: 0;
+}
+
+.menu {
+    height: 100%;
+    margin: 0;
+    border-right: 1px black solid;
+    border-bottom: 1px black solid;
+    width: 8%;
+    text-align: center;
+    background-color: burlywood;
+}
+
+.listLink {
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    text-decoration: none;
+}
+
+.list {
+    margin: 10%;
+    padding: 10% 0% 10% 0%;
+    border: 1px yellow solid;
+    border-radius: 50%;
+}
+
+.formLink {
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 50% 0 50% 0;
+    text-decoration: none;
+}
+
+.form {
+    padding: 20%;
+    margin: 0;
+    border-top: 1px black solid;
+    
+}
+
+.bodyScreen {
+    display: flex;
+    height: 720px;
+    background-color: rgb(248, 213, 168);    
+}
+
+.eventList {
+    width: 92%;
+    height: fit-content;
+    display: flex;
+}
+
+.eventItem {
+    width: fit-content;
+    height: fit-content;
+    margin: 10px;
+    border: 1px black solid;
+}
+
+.eventTitle {
+    margin: 10px;
+}
+
+.date {
+    margin: 10px;
+}
+
+hr{
+    margin: 0;
+}
+
+.newButton{
+    background-color: #ffc16f;
+    border: 1px black solid;
+    border-radius: 2px;
+    margin-top: 15%;
+}
