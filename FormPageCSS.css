@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+
+}
+
+.header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px black solid;
+    background-color: #c99141;
+}
+
+.title {
+    margin: 0;
+}
+
+.menu {
+    background-color: burlywood;
+    height: 100%;
+    margin: 0;
+    border-right: 1px black solid;
+    border-bottom: 1px black solid;
+    width: 8%;
+    text-align: center;
+}
+
+.listLink {
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 50% 0 50% 0;
+    text-decoration: none;
+}
+
+.list {
+    padding: 20%;
+    margin: 0;
+    border-bottom: 1px black solid;
+}
+
+.formLink {
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    text-decoration: none;
+}
+
+.form {
+    margin: 10%;
+    padding: 10% 0% 10% 0%;
+    border: 1px yellow solid;
+    border-radius: 50%;
+    
+}
+
+.bodyScreen {
+    display: flex;
+    height: 700px;
+    background-color: rgb(248, 213, 168);
+}
+
+.informationEvent {
+    width: 92%;
+    height: fit-content;
+    padding: 10px;
+    
+}
+
+.inputField{
+    width: 100%;
+    margin: 30px;
+    display: flex;
+}
+
+
+.eventItem {
+    width: fit-content;
+    height: fit-content;
+    margin: 10px;
+    border: 1px black solid;
+}
+
+.eventTitle {
+    margin: 10px;
+}
+
+.date {
+    margin: 10px;
+}
+
+hr{
+    margin: 0;
+}
+
+.buttons{
+    float:right;
+}
+
+.saveButton{
+background-color: rgb(74, 162, 250);
+border: 0px;
+border-radius: 2px;
+}
+
+.cancelButton{
+    border: 0px;
+border-radius: 2px;
+background-color:rgb(252, 88, 88);
+}
