@@ -1,12 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="stylesheet" href="EventsListPageCSS.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <header class="header">
+        <h1 class="title">Events</h1>
+        <a id="addNewEventButton" href="FormPage.html">
+            <button class="newButton">+ New</button>
+        </a>
+    </header>
+    <div class="bodyScreen">
+        <div class="menu">
+            <a href="EventsListPage.html" class="listLink">
+                <p class="list">List</p>
+            </a>
+
+            <a id="form" href="FormPage.html" class="formLink">
+                <p class="form">Form</p>
+            </a>
+            <hr>
+        </div>
+        <div id="eventList" class="eventList">
+        </div>
+    </div>
+
+
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAJHh8HtuCJJOrJwHuAfTf_TS0YX4fk4Zs",
+            authDomain: "eventtask-cba2a.firebaseapp.com",
+            projectId: "eventtask-cba2a",
+            storageBucket: "eventtask-cba2a.appspot.com",
+            messagingSenderId: "1066633327496",
+            appId: "1:1066633327496:web:4e73216fff5265427ec03d",
+            measurementId: "G-6CTMG79L0Y"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        readData();
+
+
+        function readData() {
+            const db = getDatabase();
+            const starCountRef = ref(db, '/Events/');
+            onValue(starCountRef, (snapshot) => {
+                document.getElementById('eventList').innerHTML = "";
+                const data = snapshot.val();
+                fetchData(data);
+            });
+        }
+
+
+
+        function fetchData(data) {
+            for (let i in data) {
+                var nowDate = new Date();
+                var eventDate = new Date(data[i].date+','+ data[i].time);
+                var divEventItem = document.createElement('div');
+                divEventItem.className = 'eventItem';
+
+                divEventItem.style.backgroundColor = (eventDate < nowDate) ? '#fb3838' :
+                  (eventDate > nowDate) ? '#f187f1' : (eventDate == nowDate)?'green':'';
+                divEventItem.onclick = function () {
+                    localStorage.setItem('edit', 1);
+                    localStorage.setItem('name', data[i].title);
+                    localStorage.setItem('date', data[i].date);
+                    localStorage.setItem('time', data[i].time);
+                    localStorage.setItem('description', data[i].description);
+                    location.href = "FormPage.html";
+                };
+                var title = document.createElement('h3');
+                title.innerHTML = data[i].title;
+                title.className = 'eventTitle';
+                var date = document.createElement('p');
+                date.innerHTML = eventDate.getDate() + "/" + (eventDate.getMonth()+1) + "/" + eventDate.getFullYear() + "<br>" +
+                (eventDate.getHours()<10?'0':'') + eventDate.getHours() + ":" + (eventDate.getMinutes()<10?'0':'') + eventDate.getMinutes();
+                date.className = 'date';
+                divEventItem.appendChild(title);
+                divEventItem.appendChild(date);
+                document.getElementById('eventList').appendChild(divEventItem);
+            }
+        }
+
+
+        document.getElementById("form").onclick = createEvent();
+        document.getElementById("addNewEventButton").onclick = createEvent();
+        function createEvent(){
+            localStorage.setItem('edit', 0);
+        }
+
+
+    </script>
 </body>
+
 </html>

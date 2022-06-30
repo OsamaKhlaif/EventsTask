@@ -1,12 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="stylesheet" href="FormPageCSS.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <header class="header">
+        <h1 id="title" class="title"></h1>
+    </header>
+    <div class="bodyScreen">
+        <div class="menu">
+            <a id="listLink" href="EventsListPage.html" class="listLink">
+                <p class="list">List</p>
+            </a>
+
+            <a href="FormPage.html" class="formLink">
+                <p class="form">Form</p>
+            </a>
+            <hr>
+        </div>
+        <form id="informationEvent" class="informationEvent">
+            <div class="inputField">
+                <span>Name: <input id="eventName" type="text" required></span>
+            </div>
+            <div class="inputField">
+                <span style="display: flex;">
+                    <p>Description:&#160;</p> <textarea id="eventDescription"></textarea>
+                </span>
+            </div>
+            <div class="inputField">
+                <span>Date: <input id="eventDate" type="date" required></span>
+            </div>
+            <div class="inputField">
+                <span>Time: <input id="eventTime" type="time" required></span>
+            </div>
+            <footer class="buttons">
+                <input class="cancelButton" type="button" onclick="window.location.assign('EventsListPage.html')"
+                    value="Cancel">
+                <input class="saveButton" type="button" id="submitButton" onclick="writeData()">
+            </footer>
+        </form>
+    </div>
 </body>
+
+
+
+<script type="module">
+    document.getElementById("eventName").value = localStorage.getItem('name');
+    document.getElementById('eventDate').value = localStorage.getItem('date');
+    document.getElementById('eventTime').value = localStorage.getItem('time');
+    document.getElementById('eventDescription').value = localStorage.getItem('description');
+    document.getElementById("submitButton").value = localStorage.getItem('edit') == 1 ? 'Edit' : 'Save';
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyAJHh8HtuCJJOrJwHuAfTf_TS0YX4fk4Zs",
+        authDomain: "eventtask-cba2a.firebaseapp.com",
+        projectId: "eventtask-cba2a",
+        storageBucket: "eventtask-cba2a.appspot.com",
+        messagingSenderId: "1066633327496",
+        appId: "1:1066633327496:web:4e73216fff5265427ec03d",
+        measurementId: "G-6CTMG79L0Y"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    console.log(localStorage.getItem("edit"))
+    document.getElementById('title').innerHTML = ((localStorage.getItem("edit") == 0 || localStorage.getItem("edit") == null) ? "Create Event" : "Edit Event");
+
+    document.getElementById("listLink").onclick = clear();
+
+    function clear() {
+        localStorage.clear();
+    }
+
+
+    window.writeData = function writeData() {
+
+        var eventName = document.getElementById('eventName').value;
+        var eventDescription = document.getElementById('eventDescription').value;
+        var eventDate = document.getElementById('eventDate').value;
+        var eventTime = document.getElementById('eventTime').value;
+
+        if (eventName == "") {
+            alert("Please Enter Event Name.");
+
+        }
+        else if (eventDate == "") {
+            alert("Please Enter Event Date.");
+
+        } else if (eventTime == "") {
+            alert("Please Enter Event Time.");
+        } else {
+            const db = getDatabase();
+            set(ref(db, '/Events/' + eventName), {
+                title: eventName,
+                date: eventDate,
+                time: eventTime,
+                description: eventDescription
+            });
+            clear();
+            this.window.close();
+        }
+    }
+</script>
+
 </html>
